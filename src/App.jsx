@@ -15,14 +15,18 @@ function App() {
 
   useEffect(() => {
     const generatePipes = setInterval(() => {
-      const randomHeight = Math.random() * 100 + 200;
+      const heightArray = [400, 150, 300, 250, 200, 350];
+      const randomIndex = Math.floor(Math.random() * (heightArray.length / 2)) * 2;
+      const upperPipeHeight = heightArray[randomIndex];
+      const lowerPipeHeight = heightArray[randomIndex + 1];
+      
       setPipes(prev => [
         ...prev,
-        {x: window.innerWidth, y: 0, height: randomHeight, isBottom: false},
-        {x: window.innerWidth, y: window.innerHeight - randomHeight - 150, height: randomHeight, isBottom: true}
+        {x: window.innerWidth, y: 0, height: upperPipeHeight, isBottom: false},
+        {x: window.innerWidth, y: window.innerHeight - lowerPipeHeight, height: lowerPipeHeight, isBottom: true}  
       ]);
-    }, 3000);
-
+    }, 1000);
+  
     return () => clearInterval(generatePipes);
   }, []);
 
@@ -30,13 +34,13 @@ function App() {
     const movePipes = setInterval(() => {
       setPipes(prevPipes => prevPipes.map(pipe => ({ ...pipe, x: pipe.x - 5 }))
                                      .filter(pipe => pipe.x > -50));
-    }, 20);
+    }, 10);
 
     return () => clearInterval(movePipes);
   }, []);
 
   useEffect(() => {
-    window.addEventListener('keydown', jump);
+    window.addEventListener('keydown', jump);  
     return () => window.removeEventListener('keydown', jump);
   }, []);
 
@@ -44,7 +48,7 @@ function App() {
     const gravityInterval = setInterval(() => {
       setBirdPosition((prev) => ({
         ...prev,
-        y: Math.min(window.innerHeight - 50, prev.y + 5)
+        y: Math.min(window.innerHeight - 110, prev.y + 10)
       }));
     }, 100);
   

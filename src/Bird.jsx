@@ -9,12 +9,12 @@ const Bird = ({ birdPosition }) => {
 			alt="bird"
 			className="bird"
 			style={{
-        position: 'absolute',
-				left: birdPosition.x,
-				top: birdPosition.y,
-        height: '50px',
-        width: '50px',
-        zIndex: 1000,
+				position: 'absolute',
+						left: birdPosition.x,
+						top: birdPosition.y,
+				height: '50px',
+				width: '50px',
+				zIndex: 1000,
 			}}
 		/>
 	);

@@ -10,11 +10,12 @@ const Pipes = ({ pipePosition }) => {
 			style={{
 				position: 'absolute',
 				left: pipePosition.x,
-				top: pipePosition.isBottom ? 'auto' : pipePosition.y,
+				top: pipePosition.isBottom ? 'auto' : pipePosition.y-10,
 				bottom: pipePosition.isBottom ? 0 : 'auto',
 				height: pipePosition.height,
 				transform: pipePosition.isBottom ? 'rotate(0deg)' : 'rotate(180deg)',
 				width: '200px',
+				marginBottom: '60px'
 			}}
 			draggable={false}
 		/>
