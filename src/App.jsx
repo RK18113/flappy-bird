@@ -1,67 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import Bird from './Bird.jsx';
-import Pipe from './Pipe.jsx';
-import './App.css';
+import React from "react";
+import Game from "./Game.jsx";
+import bgImg from "./assets/images/bg.jpg"
 
-function App() {
-  const [birdPosition, setBirdPosition] = useState({ x: 100, y: 200 });
-  const [pipes, setPipes] = useState([]);
+function App(){
 
-  function jump(event){
-    if (event.code === 'Space'){
-      setBirdPosition((prev) => ({...prev, y: Math.max(0, prev.y - 60)}))
-    }
-  }
-
-  useEffect(() => {
-    const generatePipes = setInterval(() => {
-      const heightArray = [400, 150, 300, 250, 200, 350];
-      const randomIndex = Math.floor(Math.random() * (heightArray.length / 2)) * 2;
-      const upperPipeHeight = heightArray[randomIndex];
-      const lowerPipeHeight = heightArray[randomIndex + 1];
-      
-      setPipes(prev => [
-        ...prev,
-        {x: window.innerWidth, y: 0, height: upperPipeHeight, isBottom: false},
-        {x: window.innerWidth, y: window.innerHeight - lowerPipeHeight, height: lowerPipeHeight, isBottom: true}  
-      ]);
-    }, 1000);
-  
-    return () => clearInterval(generatePipes);
-  }, []);
-
-  useEffect(() => {
-    const movePipes = setInterval(() => {
-      setPipes(prevPipes => prevPipes.map(pipe => ({ ...pipe, x: pipe.x - 5 }))
-                                     .filter(pipe => pipe.x > -50));
-    }, 10);
-
-    return () => clearInterval(movePipes);
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('keydown', jump);  
-    return () => window.removeEventListener('keydown', jump);
-  }, []);
-
-  useEffect(() => {
-    const gravityInterval = setInterval(() => {
-      setBirdPosition((prev) => ({
-        ...prev,
-        y: Math.min(window.innerHeight - 110, prev.y + 10)
-      }));
-    }, 100);
-  
-    return () => clearInterval(gravityInterval);
-  }, []);
-
-  return (
-    <>
-      <Bird birdPosition={birdPosition} />
-      {pipes.map((pipe, index) => (
-        <Pipe key={index} pipePosition={pipe}/>
-      ))}
-    </>
+  return(
+    <div className="w-screen h-screen overflow-hidden bg-no-repeat bg-center"
+         style={{
+           backgroundImage: `url(${bgImg})`,
+           backgroundSize: '100% 100vh'
+         }}>
+    <Game></Game>
+    </div>
+    
   );
 }
 
