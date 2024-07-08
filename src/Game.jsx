@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Bird from './Bird.jsx';
 import Pipe from './Pipe.jsx';
 import ScoreBoard from './ScoreBoard.jsx';
-import './Game.css';
 
 function Game() {
   const [birdPosition, setBirdPosition] = useState({ x: 100, y: 200 });
